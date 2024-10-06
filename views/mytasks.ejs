@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tasks - Task Manager</title>
+    <link rel="stylesheet" href="/styles/my-tasks.css">
+</head>
+<body>
+    <header>
+        <h1>Task Manager</h1>
+        <nav>
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/mytasks">My Tasks</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>My Tasks</h2>
+        
+        <!-- Upcoming Tasks -->
+        <section>
+            <h3>Upcoming Tasks</h3>
+            <% const today = new Date(); %>
+            <% const upcomingTasks = tasks.filter(task => new Date(task.duedate) >= today); %>
+            
+            <% if (upcomingTasks.length === 0) { %>
+                <p>You have no upcoming tasks.</p>
+            <% } else { %>
+                <ul class="task-list">
+                    <% upcomingTasks.forEach(task => { %>
+                        <li class="task-item">
+                            <h3><%= task.title %></h3>
+                            <p><strong>Description:</strong> <%= task.description %></p>
+                            <p><strong>Priority:</strong> <%= task.priority %></p>
+                            <p><strong>Due-date:</strong> <%= task.duedate %></p>
+                            
+                            <form action="/delete-task/<%= task._id %>" method="POST">
+                                <button type="submit" class="delete-btn">Delete</button>
+                            </form>
+                            <form action="/updatetask/<%= task._id %>" method="POST">
+                                <button type="submit" class="update-btn">Update</button>
+                            </form>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } %>
+        </section>
+
+        <!-- Outdated Tasks -->
+        <section>
+            <h3>Outdated Tasks</h3>
+            <% const outdatedTasks = tasks.filter(task => new Date(task.duedate) < today); %>
+            
+            <% if (outdatedTasks.length === 0) { %>
+                <p>You have no outdated tasks.</p>
+            <% } else { %>
+                <ul class="task-list">
+                    <% outdatedTasks.forEach(task => { %>
+                        <li class="task-item">
+                            <h3><%= task.title %></h3>
+                            <p><strong>Description:</strong> <%= task.description %></p>
+                            <p><strong>Priority:</strong> <%= task.priority %></p>
+                            <p><strong>Due-date:</strong> <%= task.duedate %></p>
+                            
+                            <form action="/delete-task/<%= task._id %>" method="POST">
+                                <button type="submit" class="delete-btn">Delete</button>
+                            </form>
+                            <form action="/updatetask/<%= task._id %>" method="POST">
+                                <button type="submit" class="update-btn">Update</button>
+                            </form>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } %>
+        </section>
+    </main>
+</body>
+</html>

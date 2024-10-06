@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Task - Task Manager</title>
+    
+    <link rel="stylesheet" href="/styles/add-task.css">
+</head>
+<body>
+    <header>
+        <h1>Task Manager</h1>
+        <nav>
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/mytasks">My Tasks</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="add-task-section">
+        <h2>Add a New Task</h2>
+        <% if (message) { %>
+                 <div>   <%= message %></div>
+        <% } %>
+        <form id="add-task-form" action="/addtask" method="POST">
+            <div class="form-group">
+                <label for="task-title">Task Title:</label>
+                <input type="text" id="task-title" name="title" placeholder="Enter task title" required>
+            </div>
+            <div class="form-group">
+                <label for="task-desc">Task Description:</label>
+                <textarea id="task-desc" name="description" placeholder="Describe your task" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="task-priority">Priority:</label>
+                <select id="task-priority" name="priority">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            <div class="form-group"></div>
+                <label for="due-date">Due date:</label>
+                <input type="datetime-local" id="duedate" name="duedate" placeholder="Enter Due date" required>
+            </div>
+            <button type="submit">Add Task</button>
+        </form>
+    </main>
+
+</body>
+</html>

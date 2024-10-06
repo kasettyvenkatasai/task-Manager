@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+    }
+    
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-top: 20px;
+    }
+    
+    #update-task-form {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+    
+    .form-group input, 
+    .form-group textarea, 
+    .form-group select {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+    
+    .form-group input:focus, 
+    .form-group textarea:focus, 
+    .form-group select:focus {
+        border-color: #3d5af1; /* Change border color on focus */
+        outline: none; /* Remove outline */
+    }
+    
+    button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #3d5af1;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    
+    button:hover {
+        background-color: #2c48b7; /* Darker shade on hover */
+    }
+    
+    /* Optional: Add some margin for the main content */
+    main {
+        padding: 20px;
+    }
+    </style>
+</head>
+<body>
+  
+    
+    <form id="update-task-form" action="/updatetask2/<%= task._id %>" method="POST">
+        <div class="form-group">
+            <label for="task-title">Task Title:</label>
+            <input type="text" id="task-title" name="title" value="<%= task.title %>" required>
+        </div>
+    
+        <div class="form-group">
+            <label for="task-desc">Task Description:</label>
+            <textarea id="task-desc" name="description" rows="4"><%= task.description %></textarea>
+        </div>
+    
+        <div class="form-group">
+            <label for="task-priority">Priority:</label>
+            <select id="task-priority" name="priority">
+                <option value="low" <% if (task.priority === 'low') { %> selected <% } %>>Low</option>
+                <option value="medium" <% if (task.priority === 'medium') { %> selected <% } %>>Medium</option>
+                <option value="high" <% if (task.priority === 'high') { %> selected <% } %>>High</option>
+            </select>
+        </div>
+    
+        <div class="form-group">
+            <label for="due-date">Due Date:</label>
+            <input type="datetime-local" id="due-date" name="duedate" value="<%= task.duedate.toISOString().slice(0,16) %>" required>
+        </div>
+    
+        <button type="submit">Update Task</button>
+    </form>
+    
+</body>
+</html>

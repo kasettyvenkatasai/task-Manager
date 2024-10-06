@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Task Manager</title>
+    
+    <link rel="stylesheet" href="/styles/home.css">
+</head>
+<body>
+    <header>
+        <h1>Task Manager</h1>
+        <nav>
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/mytasks">My Tasks</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="task-overview">
+        <h2>Welcome, <%= user.name %></h2>
+        
+    
+        <section class="tasks">
+            <h3>Tasks Due Today</h3>
+            <ul id="task-list">
+                <% const today = new Date().toISOString().split('T')[0]; %>
+                <% tasks.forEach(tasks => { %>
+                    <% const taskDueDate = new Date(tasks.duedate).toISOString().split('T')[0]; %>
+                    <% if (taskDueDate === today) { %>
+                        <li>
+                            <strong>Task:</strong> <%= tasks.title %> <br>
+                            <strong>Due:</strong> <%= tasks.duedate.toDateString() %> <br>
+                            <strong>Priority:</strong> <%= tasks.priority %>
+                        </li>
+                    <% } %>
+                <% }); %>
+            </ul>
+            <% if (!tasks.some(task => new Date(task.duedate).toISOString().split('T')[0] === today)) { %>
+                <p id="no-task-message">No tasks are due today!</p>
+            <% } %>
+        </section>
+        <h3>no of tasks you have :</h3>
+        <% if (tasks.length===1) { %>
+            <p id="no-task-message"> <%= tasks.length %> task</p>
+        <% } else { %>
+            <p id="no-task-message"> <%= tasks.length %> tasks</p><% } %>
+
+        <section class="add-task">
+            <h3>Add New Task</h3>
+            <form id="task-form" action="/add-task" method="POST">
+                <button type="submit">Add Task</button>
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>
